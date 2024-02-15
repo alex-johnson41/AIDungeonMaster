@@ -1,9 +1,9 @@
 import google.generativeai as genai
 import config
-from ai_model.abstract_base_model import AbstractBaseModel
+from ai_model.abstract_ai_model import AbstractAIModel
 
 
-class GeminiModel(AbstractBaseModel):
+class GeminiModel(AbstractAIModel):
     def __init__(self):
         genai.configure(api_key=config.GEMINI_API_KEY)
         self.model = genai.GenerativeModel('gemini-pro')

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class AbstractBaseModel(ABC):
+class AbstractAIModel(ABC):
 
     @abstractmethod
     def communicate(self, prompt: str) -> str:
