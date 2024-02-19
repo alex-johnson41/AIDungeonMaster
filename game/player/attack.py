@@ -9,6 +9,4 @@ class Attack:
         self.damage = damage
 
     def attack(self, range: int) -> int:
-        if range > self.range:
-            return 0
-        return self.damage.roll() + self.bonus
+        return 0 if range > self.range else self.damage.roll() + self.bonus 
