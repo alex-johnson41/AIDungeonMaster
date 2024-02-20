@@ -1,4 +1,4 @@
-from ..game.player.player import Player
+from game.player.player import Player
 
 class CharacterCreator:
     def __init__(self):
