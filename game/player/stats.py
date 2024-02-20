@@ -8,5 +8,5 @@ class Stats:
         self.charisma = charisma
 
     def get_modifier(self, ability: str) -> int:
-        # Calculate the modifier for the given ability
+        #TODO: Calculate the modifier for the given ability
         pass
