@@ -16,9 +16,9 @@ class Game:
         pass
 
     def find_skill_checks(self, prompt: str) -> List[str]:
-        response = self.skill_model.communicate(prompt)
         while (True):
             try: 
+                response = self.skill_model.communicate(prompt)
                 skill_checks = eval(response)
                 break
             except:
