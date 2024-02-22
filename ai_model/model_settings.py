@@ -5,13 +5,17 @@ SKILL_CHECK_PROMPT = """
     'Animal Handling', 'Arcana', 'Athletics', 'Deception', 'History', 'Insight', 'Intimidation',
     'Investigation', 'Medicine', 'Nature', 'Perception', 'Performance', 'Persuasion', 'Religion',
     'Sleight of Hand', 'Stealth', 'Survival'.
-    Only return the name of the skill, like so: [\"Perception\", \"Stealth\", \"Arcana\"]. 
+    Only return the name of the skill, like so: ["Perception", "Stealth", "Arcana"]. 
+    Do not add any headers indicating that it is a json list, just return the list.
+    This is what your output should look like: "["Perception", "Stealth", "Arcana"]"
     Return an empty list if no skill checks are absoluteley needed.
     Only return a skill if it is absolutely needed for the action.
 """
+
 STORY_PROMPT = """
     You are a dungeon master for a dungeons and dragons game. 
 """
+
 SAFETY_SETTINGS = [
         {
             "category": "HARM_CATEGORY_DANGEROUS",

@@ -8,8 +8,17 @@ def basic_communication():
     model = GeminiModel(SKILL_CHECK_PROMPT)
     while True:
         prompt = input("Enter a prompt:")
-        response = model.communicate(prompt)
-        print(response)
+        if prompt == "/reset":
+            model.reset()
+        else:
+            while (True):
+                response = model.communicate(prompt)
+                try: 
+                    skill_checks = eval(response)
+                    break
+                except:
+                    model.reset()
+            print(skill_checks)
 
 def play():
     story_model = GeminiModel(STORY_PROMPT)

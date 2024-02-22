@@ -1,3 +1,4 @@
+from typing import List
 from ai_model.abstract_ai_model import AbstractAIModel
 from game.player.player import Player
 
@@ -11,5 +12,15 @@ class Game:
     def play(self) -> None:
         pass
 
-    def find_skill_checks(self, prompt: str) -> None:
+    def take_turn(self) -> None:
         pass
+
+    def find_skill_checks(self, prompt: str) -> List[str]:
+        response = self.skill_model.communicate(prompt)
+        while (True):
+            try: 
+                skill_checks = eval(response)
+                break
+            except:
+                self.skill_model.reset()
+        return skill_checks
