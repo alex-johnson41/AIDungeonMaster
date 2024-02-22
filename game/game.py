@@ -16,10 +16,12 @@ class Game:
         pass
 
     def find_skill_checks(self, prompt: str) -> List[str]:
+        # Continue to prompt and reset the model until it 
+        # returns a syntactically correct list
         while (True):
             try: 
                 response = self.skill_model.communicate(prompt)
-                skill_checks = eval(response)
+                skill_checks = eval(response) # Converts output to a list
                 break
             except:
                 self.skill_model.reset()
