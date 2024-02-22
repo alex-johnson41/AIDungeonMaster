@@ -15,7 +15,7 @@ class Player:
         self.stats = stats
         self.skills = skills
         self.attacks = attacks
-        self.level = 0
+        self.level = 1
         self.hp = hp_max
         self.hp_max = hp_max
         self.klass = klass
