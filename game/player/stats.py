@@ -8,5 +8,4 @@ class Stats:
         self.charisma = charisma
 
     def get_modifier(self, ability: str) -> int:
-        #TODO: Calculate the modifier for the given ability
-        pass
+        return (self.__getattribute__(ability) - 10) // 2
