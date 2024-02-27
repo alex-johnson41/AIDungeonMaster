@@ -1,4 +1,4 @@
-from game.player.klass.abstract_klass import AbstractKlass
+from character_creation.klass.abstract_klass import AbstractKlass
 
 
 class Fighter(AbstractKlass):

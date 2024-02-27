@@ -1,4 +1,4 @@
-from game.player.race.abstract_race import AbstractRace
+from character_creation.race.abstract_race import AbstractRace
 
 
 class Human(AbstractRace):
