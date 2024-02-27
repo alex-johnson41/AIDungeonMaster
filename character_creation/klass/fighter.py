@@ -5,4 +5,3 @@ class Fighter(AbstractKlass):
     def __init__(self):
         self.proficiency_bonus = 2
         self.base_hp = 10
-        
