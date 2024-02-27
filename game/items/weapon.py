@@ -1,4 +1,5 @@
 from .abstract_item import AbstractItem
 
 class Weapon(AbstractItem):
-    pass
+    def to_json(self) -> dict:
+        return {}

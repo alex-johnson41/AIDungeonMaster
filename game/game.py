@@ -1,4 +1,3 @@
-from typing import List
 from ai_model.abstract_ai_model import AbstractAIModel
 from game.player.player import Player
 
@@ -15,7 +14,7 @@ class Game:
     def take_turn(self) -> None:
         pass
 
-    def find_skill_checks(self, prompt: str) -> List[str]:
+    def find_skill_checks(self, prompt: str) -> list[str]:
         # Continue to prompt and reset the model until it 
         # returns a syntactically correct list
         while (True):
@@ -26,3 +25,10 @@ class Game:
             except:
                 self.skill_model.reset()
         return skill_checks
+    
+    def prompt_model(self, player_prompt: str, skill_checks: list[str]) -> str:
+        game_data = {
+            "player": self.player.to_json(),
+            "skill_checks": skill_checks
+        }
+        return self.story_model.communicate(f"{game_data}\n{player_prompt}")

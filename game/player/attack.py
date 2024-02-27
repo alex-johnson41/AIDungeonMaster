@@ -10,3 +10,11 @@ class Attack:
 
     def attack(self, range: int) -> int:
         return 0 if range > self.range else self.damage.roll() + self.bonus 
+    
+    def to_json(self) -> dict:
+        return {
+            "name": self.name,
+            "bonus": self.bonus,
+            "range": self.range,
+            "damage": self.damage.to_string()
+        }

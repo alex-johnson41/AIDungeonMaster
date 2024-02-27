@@ -9,3 +9,13 @@ class Stats:
 
     def get_modifier(self, ability: str) -> int:
         return (self.__getattribute__(ability) - 10) // 2
+    
+    def to_json(self) -> dict:
+        return {
+            "strength": self.stregth,
+            "dexterity": self.dexterity,
+            "constitution": self.constitution,
+            "intelligence": self.intelligence,
+            "wisdom": self.wisdom,
+            "charisma": self.charisma
+        }

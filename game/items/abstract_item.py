@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
 
 class AbstractItem(ABC):
-    pass
+    @abstractmethod
+    def to_json(self) -> dict:
+        pass

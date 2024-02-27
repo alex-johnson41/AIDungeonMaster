@@ -1,4 +1,3 @@
-from typing import List
 from game.inventory import Inventory
 from .attack import Attack
 from .klass.abstract_klass import AbstractKlass
@@ -7,7 +6,7 @@ from .stats import Stats
 from .skills import Skills
 
 class Player:
-    def __init__(self, name: str, stats: Stats, skills: Skills, attacks: List[Attack],
+    def __init__(self, name: str, stats: Stats, skills: Skills, attacks: list[Attack],
                  hp_max: int, klass: AbstractKlass, race: AbstractRace, inventory: Inventory,
                  armor: int
                  ):
@@ -42,3 +41,17 @@ class Player:
         self.hp += hp
         if self.hp > self.hp_max:
             self.hp = self.hp_max
+
+    def to_json(self) -> dict:
+        return {
+            "name": self.name,
+            "stats": self.stats.to_json(),
+            "skills": self.skills.to_json(),
+            "attacks": [attack.to_json() for attack in self.attacks],
+            "level": self.level,
+            "hp": self.hp,
+            "hp_max": self.hp_max,
+            "inventory": self.inventory.to_json(),
+            "armor": self.armor,
+            "speed": self.speed,
+        }

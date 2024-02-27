@@ -6,3 +6,6 @@ class Die:
 
     def roll(self) -> int:
         return randint(1, self.sides)
+    
+    def to_string(self) -> str:
+        return f"1d{self.sides}"
