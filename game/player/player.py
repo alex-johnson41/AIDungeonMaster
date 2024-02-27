@@ -1,7 +1,7 @@
 from game.inventory import Inventory
 from .attack import Attack
-from .klass.abstract_klass import AbstractKlass
-from .race.abstract_race import AbstractRace
+from character_creation.klass.abstract_klass import AbstractKlass
+from character_creation.race.abstract_race import AbstractRace
 from .stats import Stats
 from .skills import Skills
 
