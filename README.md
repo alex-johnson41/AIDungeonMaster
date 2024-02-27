@@ -10,3 +10,4 @@
         - ```source .venv/bin/activate```
     - Install dependencies:
         - ```pip install -r requirements.txt```
+- Create a config.py file in the project root directory and add your API key to the variable GEMINI_API_KEY
