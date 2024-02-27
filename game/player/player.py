@@ -9,7 +9,7 @@ from .skills import Skills
 class Player:
     def __init__(self, name: str, stats: Stats, skills: Skills, attacks: List[Attack],
                  hp_max: int, klass: AbstractKlass, race: AbstractRace, inventory: Inventory,
-                 armor: int, speed: int,
+                 armor: int
                  ):
         self.name = name
         self.stats = stats
@@ -22,7 +22,7 @@ class Player:
         self.race = race
         self.inventory = inventory
         self.armor = armor
-        self.speed = speed
+        self.speed = race.speed
 
     def level_up(self) -> None:
         self.level += 1
