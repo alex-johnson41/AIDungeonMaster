@@ -11,6 +11,7 @@ class Player:
                  armor: int
                  ):
         self.name = name
+        self.xp = 0
         self.stats = stats
         self.skills = skills
         self.attacks = attacks
