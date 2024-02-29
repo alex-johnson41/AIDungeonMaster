@@ -20,9 +20,9 @@ class Game:
         # TODO: Fix this, it's a very rough start and definitely not functional
         player_prompt = self.get_user_action()
         skill_checks = self.perform_skill_checks(self.find_skill_checks(player_prompt))
-        print(skill_checks)
+        print(skill_checks) # TODO: Remove - used for testing
         response = eval(self.get_next_story(player_prompt, skill_checks))
-        print(response)
+        print(response) # TODO: Remove - used for testing
         print(response["story"])
         self.update_game(response["data"])
 
@@ -38,7 +38,7 @@ class Game:
                 self.skill_model.reset()
         return skill_checks
     
-    def initialize_story(self) -> None:
+    def initialize_story(self) -> str:
         game_data = {
             "player": self.player.to_json(),
             "skill_checks": [],
