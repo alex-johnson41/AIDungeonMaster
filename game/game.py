@@ -21,8 +21,7 @@ class Game:
         player_prompt = self.get_user_action()
         skill_checks = self.perform_skill_checks(self.find_skill_checks(player_prompt))
         print(skill_checks)
-        story = self.get_next_story(player_prompt, skill_checks)
-        response = self.parse_model_response(story)
+        response = eval(self.get_next_story(player_prompt, skill_checks))
         print(response)
         print(response["story"])
         self.update_game(response["data"])
@@ -44,6 +43,7 @@ class Game:
             "player": self.player.to_json(),
             "skill_checks": [],
             "player_action": "This is the start of the game, begin the story with the player waking up outside of a bar hungover."}
+        # Continue to prompt model until it returns syntactically correct data
         while (True):
             response = self.story_model.communicate(f"{game_data}")
             try: 
@@ -60,11 +60,9 @@ class Game:
             "player_action": player_prompt
         }
         return self.story_model.communicate(f"{game_data}")
-    
-    def parse_model_response(self, response: str) -> dict:
-        return eval(response)
 
     def update_game(self, game_data: dict) -> None:
+        # TODO: Add support for more data
         self.player.xp += game_data["xp_earned"]
         for item in game_data["new_items"]:
             self.player.inventory.add_item(item)
@@ -78,6 +76,7 @@ class Game:
         die = Die(20)
         results = {}
         for skill in skill_checks:
+            # Sometimes the model returns a skill check that isn't valid
             try:
                 results[skill] = die.roll() + self.player.skills.__getattribute__(skill.lower())
             except:

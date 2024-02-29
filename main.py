@@ -28,7 +28,11 @@ def skill_check_testing():
 
 def dummy_character() -> Player:
     stats = Stats(10, 10, 10, 10, 10, 10)
-    skills = Skills({"acrobatics": 0, "animal_handling": 0, "arcana": 0, "athletics": 0, "deception": 0, "history": 0, "insight": 0, "intimidation": 0, "investigation": 0, "medicine": 0, "nature": 0, "perception": 0, "performance": 0, "persuasion": 0, "religion": 0, "sleight_of_hand": 0, "stealth": 0, "survival": 0})
+    skills = Skills({"acrobatics": 0, "animal_handling": 0, "arcana": 0, "athletics": 0, "deception": 0, 
+                     "history": 0, "insight": 0, "intimidation": 0, "investigation": 0, "medicine": 0, 
+                     "nature": 0, "perception": 0, "performance": 0, "persuasion": 0, "religion": 0, 
+                     "sleight_of_hand": 0, "stealth": 0, "survival": 0
+                     })
 
     return Player("Test", stats, skills, [], 10, Fighter(), Human(), Inventory(10), 0)
 
