@@ -8,6 +8,7 @@ from game.inventory import Inventory
 from game.player.player import Player
 from game.player.skills import Skills
 from game.player.stats import Stats
+from logger import Logger
 
 
 def skill_check_testing():
@@ -39,9 +40,10 @@ def dummy_character() -> Player:
 def play():
     story_model = GeminiModel(STORY_PROMPT)
     skill_model = GeminiModel(SKILL_CHECK_PROMPT)
+    logger = Logger(debug=True)
     # player = CharacterCreator.create_character()
     player = dummy_character()
-    game = Game(player, story_model, skill_model)
+    game = Game(player, story_model, skill_model, logger)
     game.play()
 
 play()

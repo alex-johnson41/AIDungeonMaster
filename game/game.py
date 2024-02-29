@@ -1,18 +1,20 @@
 from ai_model.abstract_ai_model import AbstractAIModel
 from game.die import Die
 from game.player.player import Player
+from logger import Logger
 
 
 class Game:
-    def __init__(self, player: Player, story_model: AbstractAIModel, skill_model: AbstractAIModel):
+    def __init__(self, player: Player, story_model: AbstractAIModel, skill_model: AbstractAIModel, logger: Logger):
         self.player = player
         self.story_model = story_model
         self.skill_model = skill_model
+        self.logger = logger
 
     def play(self) -> None:
         # TODO: Implement game ending conditions (death, victory, etc.)
         response = self.initialize_story()
-        print(eval(response)["story"])
+        self.logger.log(eval(response)["story"])
         while (True):
             self.take_turn()
 
@@ -20,10 +22,10 @@ class Game:
         # TODO: Fix this, it's a very rough start and definitely not functional
         player_prompt = self.get_user_action()
         skill_checks = self.perform_skill_checks(self.find_skill_checks(player_prompt))
-        print(skill_checks) # TODO: Remove - used for testing
+        self.logger.debug_log(skill_checks) 
         response = eval(self.get_next_story(player_prompt, skill_checks))
-        print(response) # TODO: Remove - used for testing
-        print(response["story"])
+        self.logger.debug_log(response) 
+        self.logger.log(response["story"])
         self.update_game(response["data"])
 
     def find_skill_checks(self, prompt: str) -> list[str]:
