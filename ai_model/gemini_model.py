@@ -14,7 +14,7 @@ class GeminiModel(AbstractAIModel):
         response = self.chat.send_message(prompt, safety_settings=SAFETY_SETTINGS)
         return response.text
     
-    def reset(self):
+    def reset(self) -> None:
         self.model = genai.GenerativeModel('gemini-pro', safety_settings=SAFETY_SETTINGS)
         self.chat = self.model.start_chat(history=[])
         if self.initialization_prompt:

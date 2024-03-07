@@ -19,7 +19,7 @@ class Game:
             self.take_turn()
 
     def take_turn(self) -> None:
-        # TODO: Fix this, it's a very rough start and definitely not functional
+        # TODO: Fix this, it's a very rough start and can be cleaned up
         player_prompt = self.get_user_action()
         skill_checks = self.perform_skill_checks(self.find_skill_checks(player_prompt))
         self.logger.debug_log(skill_checks) 
