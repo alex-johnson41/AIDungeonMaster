@@ -1,83 +1,64 @@
-from ai_model.abstract_ai_model import AbstractAIModel
+from ai.communication.ai_communication_manager import AICommunicationManager
+from ai.communication.ai_story_output import AIStoryOutput
+from ai.communication.ai_skill_check_output import AISkillCheckOutput
 from game.die import Die
 from game.player.player import Player
 from logger import Logger
 
 
 class Game:
-    def __init__(self, player: Player, story_model: AbstractAIModel, skill_model: AbstractAIModel, logger: Logger):
+    def __init__(self, player: Player, ai_communication_manager: AICommunicationManager, logger: Logger):
         self.player = player
-        self.story_model = story_model
-        self.skill_model = skill_model
         self.logger = logger
+        self.ai_communication_manager = ai_communication_manager
 
     def play(self) -> None:
         # TODO: Implement game ending conditions (death, victory, etc.)
-        response = self.initialize_story()
-        self.logger.log(eval(response)["story"])
+        output = self.initialize_story()
+        self.logger.log(output.story)
         while (True):
             self.take_turn()
 
     def take_turn(self) -> None:
         # TODO: Fix this, it's a very rough start and can be cleaned up
+        # It's farily cleaned up now but it could be better/easier to follow
         player_prompt = self.get_user_action()
-        skill_checks = self.perform_skill_checks(self.find_skill_checks(player_prompt))
-        self.logger.debug_log(skill_checks) 
-        response = eval(self.get_next_story(player_prompt, skill_checks))
-        self.logger.debug_log(response) 
-        self.logger.log(response["story"])
-        self.update_game(response["data"])
+        skill_checks = self.perform_skill_checks(self.find_skill_checks(player_prompt)) 
+        response = self.get_next_story(player_prompt, skill_checks)
+        self.update_player(response)
 
-    def find_skill_checks(self, prompt: str) -> list[str]:
-        # Continue to prompt and reset the model until it 
-        # returns a syntactically correct list
-        while (True):
-            try: 
-                response = self.skill_model.communicate(prompt)
-                skill_checks = eval(response) # Converts output to a list
-                break
-            except:
-                self.skill_model.reset()
-        return skill_checks
-    
-    def initialize_story(self) -> str:
-        game_data = {
-            "player": self.player.to_json(),
-            "skill_checks": [],
-            "player_action": "This is the start of the game, begin the story with the player waking up outside of a bar hungover."}
-        # Continue to prompt model until it returns syntactically correct data
-        while (True):
-            response = self.story_model.communicate(f"{game_data}")
-            try: 
-                eval(response)
-                break
-            except:
-                self.story_model.reset()
-        return response
-    
-    def get_next_story(self, player_prompt: str, skill_checks: list[str]) -> str:
-        game_data = {
-            "player": self.player.to_json(),
-            "skill_checks": skill_checks,
-            "player_action": player_prompt
-        }
-        return self.story_model.communicate(f"{game_data}")
+        self.logger.debug_log(skill_checks)
+        self.logger.debug_log(response.to_json()) 
+        self.logger.log(response.story)
 
-    def update_game(self, game_data: dict) -> None:
+    def find_skill_checks(self, prompt: str) -> AISkillCheckOutput:
+        return self.ai_communication_manager.skill_communicate(prompt)
+    
+    def initialize_story(self) -> AIStoryOutput:
+        # TODO: Add a file with a list of prompts to start the game with and pick one at random
+        # Maybe add support for the user to input their own starting prompt
+        prompt = "This is the start of the game, begin the story with the player waking up outside of a bar hungover."
+        return self.ai_communication_manager.story_communicate(self.player, {}, prompt)
+    
+    def get_next_story(self, player_prompt: str, skill_checks: dict[str, int]) -> AIStoryOutput:
+        return self.ai_communication_manager.story_communicate(self.player, player_prompt, skill_checks)
+
+    def update_player(self, data: AIStoryOutput) -> None:
         # TODO: Add support for more data
-        self.player.xp += game_data["xp_earned"]
-        for item in game_data["new_items"]:
+        # Also maybe we move this function to a different class, idk where tho
+        self.player.xp += data.xp_earned
+        for item in data.new_items:
             self.player.inventory.add_item(item)
-        self.player.hp -= game_data["damage_taken"]
+        self.player.hp -= data.damage_taken
 
     def get_user_action(self) -> str:
         return input("Input your action: ")
     
-    def perform_skill_checks(self, skill_checks: list[str]) -> dict[str, int]:
+    def perform_skill_checks(self, skill_output: AISkillCheckOutput) -> dict[str, int]:
         # TODO: Double check that skill checks are always done with a d20
         die = Die(20)
         results = {}
-        for skill in skill_checks:
+        for skill in skill_output.skill_checks:
             # Sometimes the model returns a skill check that isn't valid
             try:
                 results[skill] = die.roll() + self.player.skills.__getattribute__(skill.lower())

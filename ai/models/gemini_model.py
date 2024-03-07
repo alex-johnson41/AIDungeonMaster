@@ -1,6 +1,6 @@
 import google.generativeai as genai
 import config
-from ai_model.abstract_ai_model import AbstractAIModel
+from ai.models.abstract_ai_model import AbstractAIModel
 from .model_settings import SAFETY_SETTINGS
 
 

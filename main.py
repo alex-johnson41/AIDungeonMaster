@@ -1,5 +1,6 @@
-from ai_model.gemini_model import GeminiModel
-from ai_model.model_settings import SKILL_CHECK_PROMPT, STORY_PROMPT
+from ai.communication.ai_communication_manager import AICommunicationManager
+from ai.models.gemini_model import GeminiModel
+from ai.models.model_settings import SKILL_CHECK_PROMPT, STORY_PROMPT
 from character_creation.character_creator import CharacterCreator
 from character_creation.klass.fighter import Fighter
 from character_creation.race.human import Human
@@ -40,10 +41,11 @@ def dummy_character() -> Player:
 def play():
     story_model = GeminiModel(STORY_PROMPT)
     skill_model = GeminiModel(SKILL_CHECK_PROMPT)
+    ai_communication_manager = AICommunicationManager(story_model, skill_model)
     logger = Logger(debug=True)
     # player = CharacterCreator.create_character()
     player = dummy_character()
-    game = Game(player, story_model, skill_model, logger)
+    game = Game(player, ai_communication_manager, logger)
     game.play()
 
 play()
