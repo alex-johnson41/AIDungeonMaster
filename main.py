@@ -11,23 +11,6 @@ from game.player.skills import Skills
 from game.player.stats import Stats
 from logger import Logger
 
-
-def skill_check_testing():
-    model = GeminiModel(SKILL_CHECK_PROMPT)
-    while True:
-        prompt = input("Enter a prompt: ")
-        if prompt == "/reset":
-            model.reset()
-        else:
-            while (True):
-                response = model.communicate(prompt)
-                try: 
-                    skill_checks = eval(response)
-                    break
-                except:
-                    model.reset()
-            print(skill_checks)
-
 def dummy_character() -> Player:
     stats = Stats(10, 10, 10, 10, 10, 10)
     skills = Skills({"acrobatics": 0, "animal_handling": 0, "arcana": 0, "athletics": 0, "deception": 0, 
