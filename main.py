@@ -43,8 +43,8 @@ def play():
     skill_model = GeminiModel(SKILL_CHECK_PROMPT)
     ai_communication_manager = AICommunicationManager(story_model, skill_model)
     logger = Logger(debug=True)
-    # player = CharacterCreator.create_character()
-    player = dummy_character()
+    player = CharacterCreator(logger).create_character()
+    # player = dummy_character()
     game = Game(player, ai_communication_manager, logger)
     game.play()
 
