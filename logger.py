@@ -1,6 +1,5 @@
-# We may want to log the output of the game to a file at some point, 
-# so use this class anytime we want to print something, so we can later
-# easily change this to write to a file if we want to. 
+# If we add a GUI at some point, this class can be easily
+# adapted to send messages to the GUI instead of the console.
 class Logger:
     def __init__(self, debug: bool = False):
         self.debug = debug
