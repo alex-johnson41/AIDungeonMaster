@@ -1,6 +1,6 @@
 class Stats:
     def __init__(self, strength: int, dexterity: int, constitution: int, intelligence: int, wisdom: int, charisma: int):
-        self.stregth = strength
+        self.strength = strength
         self.dexterity = dexterity
         self.constitution = constitution
         self.intelligence = intelligence
@@ -12,7 +12,7 @@ class Stats:
     
     def to_json(self) -> dict:
         return {
-            "strength": self.stregth,
+            "strength": self.strength,
             "dexterity": self.dexterity,
             "constitution": self.constitution,
             "intelligence": self.intelligence,
