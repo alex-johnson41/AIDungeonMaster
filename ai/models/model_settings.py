@@ -24,7 +24,10 @@ STORY_PROMPT = """
     piece of the story, going until the player needs to make another action to progress it. The story should be affected by the
     results of the skill checks and the player's action. Generate the story until the player is about to make and action, and then stop.
     "data" will be a json object containing all of the data that you changed in the game. It will have the following keys:
-    "xp_earned", "damage_taken", "new_items". "xp_earned" will be an integer, "damage_taken" will be an integer, and "new_items" will be a json list of strings.
+    "xp_earned", "damage_taken", "new_items". "xp_earned" will be an integer, "damage_taken" will be an integer, and "new_items" will be a dictionary 
+    of items that the player has gained. The keys will be the name of the item, and the values will be a dictionary containing the following key value pairs:
+    {"type": type of the item, either "weapon", "item", or "currency"}, {"name": name of the item} as well as relevant data for that item listed below. 
+    Weapons will have {"range": int}, items will not have anything else, and currency will have {"value": int}.
     Only return the things specified above. Most of the time, the objects within "data" will be empty, but they will always be there.
     Return just the json object, and nothing else. Do not add formatting to the json.
     Example output: "{"story": "insert story here", "data": {"xp_earned": 0, "damage_taken": 0, "new_items": []}}"
