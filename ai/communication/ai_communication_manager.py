@@ -18,7 +18,7 @@ class AICommunicationManager():
         output = self.repeat_prompt(prompt, False)
         return AISkillCheckOutput(output)
 
-    def format_story_prompt(self, player: Player, prompt: str, skill_checks: dict[str, int]) -> str:
+    def format_story_prompt(self, player: Player, prompt: str, skill_checks: dict[str, int]) -> dict:
         return {
             "player": player.to_json(),
             "skill_checks": skill_checks,
