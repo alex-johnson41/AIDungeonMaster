@@ -45,7 +45,6 @@ class Game:
 
     def update_player(self, data: AIStoryOutput) -> None:
         # TODO: Add support for more data
-        # Also maybe we move this function to a different class, idk where tho
         self.player.xp += data.xp_earned
         for item in data.new_items:
             self.player.inventory.add_item(item)

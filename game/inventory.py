@@ -14,8 +14,11 @@ class Inventory:
         new_item = self.create_item(item_data)
         self.items.append(new_item)
 
-    def remove_item(self, item: AbstractItem) -> None:
-        self.items.remove(item)
+    def remove_item(self, item_name: str) -> None:
+        for item in self.items:
+            if item.name == item_name:
+                self.items.remove(item)
+                return
 
     def create_item(self, item_data: dict) -> AbstractItem:
         if item_data["type"] == 'weapon':
