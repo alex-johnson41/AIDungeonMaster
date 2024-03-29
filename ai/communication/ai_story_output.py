@@ -7,10 +7,10 @@ class AIStoryOutput:
         # TODO: Add support for more data
         eval_output = eval(self.output)
         data = eval_output["data"]
-        self.story = eval_output["story"]
-        self.xp_earned = data["xp_earned"]
-        self.new_items = data["new_items"]
-        self.damage_taken = data["damage_taken"]
+        self.story: str = eval_output["story"]
+        self.xp_earned: int = data["xp_earned"]
+        self.new_items: dict = data["new_items"]
+        self.damage_taken: int = data["damage_taken"]
 
     def to_json(self) -> dict:
         return {
