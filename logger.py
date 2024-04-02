@@ -12,3 +12,18 @@ class Logger:
     def debug_log(self, message: str) -> None:
         if self.debug:
             print(message)
+    
+    # Use to get input from the player
+    def input(self, message: str) -> str:
+        if message == "/help":
+            self.log("Commands: ")
+            self.log("/exit - Exits the game")
+            self.log("/debug - Toggles debug mode")
+            self.log("/inventory - Displays your inventory (only available in game)")
+            self.log("/help - Displays this message")
+        elif message == "/exit":
+            exit()
+        elif message == "/debug":
+            self.debug = not self.debug
+            self.log(f"Debug mode set to: {self.debug}")
+        return input(message)

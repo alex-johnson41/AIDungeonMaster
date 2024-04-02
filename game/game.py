@@ -23,30 +23,16 @@ class Game:
         # TODO: Fix this, it's a very rough start and can be cleaned up
         # It's farily cleaned up now but it could be better/easier to follow
         player_prompt = self.get_user_action()
-        if player_prompt[0] != "/":
+        if player_prompt == "/inventory":
+                self.logger.log(str(self.player.inventory.to_json()))
+        else:
             skill_checks = self.perform_skill_checks(self.find_skill_checks(player_prompt)) 
             response = self.get_next_story(player_prompt, skill_checks)
             self.update_player(response)
             self.logger.debug_log(skill_checks)
             self.logger.debug_log(response.to_json()) 
             self.logger.log(response.story)
-        else:
-            if player_prompt == "/exit":
-                exit(0)
-            elif player_prompt == "/debug":
-                self.logger.debug = not self.logger.debug
-                self.logger.log(f"Debug mode set to: {self.logger.debug}")
-            elif player_prompt == "/inventory":
-                self.logger.log(str(self.player.inventory.to_json()))
-            elif player_prompt == "/help":
-                print("Commands: ")
-                print("/exit - Exits the game")
-                print("/debug - Toggles debug mode")
-                print("/inventory - Displays your inventory")
-                print("/help - Displays this message")
-                print("Any other input will be treated as a player action")
-            else:
-                print("Invalid command")
+
 
     def find_skill_checks(self, prompt: str) -> AISkillCheckOutput:
         return self.ai_communication_manager.skill_communicate(prompt)
@@ -68,7 +54,7 @@ class Game:
         self.player.hp -= data.damage_taken
 
     def get_user_action(self) -> str:
-        return input("Input your action ('/help' for directions): ")
+        return self.logger.input("Input your action ('/help' for directions): ")
     
     def perform_skill_checks(self, skill_output: AISkillCheckOutput) -> dict[str, int]:
         # TODO: Double check that skill checks are always done with a d20

@@ -14,7 +14,7 @@ class CharacterCreator:
 
     def create_character(self) -> Player:
         # Calls different functions that help the user build thier character
-        name = input("Enter a name for your character: ")
+        name = self.logger.input("Enter a name for your character: ")
         race = self.chooseRace()
         klass = self.chooseKlass()
         stats = self.assignStats(race)
@@ -25,7 +25,7 @@ class CharacterCreator:
         # User chooses a race from the listed options and enters the number as input
         self.logger.log("Choose a Race for your Character:\n\n1.Human\n2.Elf (Not Available)\n3.Dwarf (Not Available)\n")
         while True:
-            choice = input("Enter number: ")
+            choice = self.logger.input("Enter number: ")
             if choice == "1":
                 #Human race Selected
                 return Human()
@@ -43,7 +43,7 @@ class CharacterCreator:
         # User chooses a class from the listed options and enters the number as input
         self.logger.log("Choose a Class for your Character:\n\n1.Fighter\n2.Wizard (Not Available)\n3.Rogue (Not Available)\n")
         while True:
-            choice = input("Enter the number of your choice: ")
+            choice = self.logger.input("Enter the number of your choice: ")
             if choice == "1":
                 #Fighter Class Selected
                 return Fighter()
@@ -70,7 +70,7 @@ class CharacterCreator:
                 string = str(number) + ". " + str(ability)
                 self.logger.log(string)
                 number += 1
-            choice = int(input("Enter the number of your choice: "))
+            choice = int(self.logger.input("Enter the number of your choice: "))
             # The input for variable 'choice' needs checks
             # Must be an integer between 1 and len(abilities)
             choiceKey = (abilities[choice-1]).lower()
