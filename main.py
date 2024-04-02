@@ -11,6 +11,14 @@ from game.player.skills import Skills
 from game.player.stats import Stats
 from logger import Logger
 
+
+"""
+FEATURES TO ADD: 
+- Save and load characters
+- Save and load games
+
+
+"""
 def dummy_character() -> Player:
     stats = Stats(10, 10, 10, 10, 10, 10)
     skills = Skills({"acrobatics": 0, "animal_handling": 0, "arcana": 0, "athletics": 0, "deception": 0, 
@@ -25,7 +33,7 @@ def play():
     story_model = GeminiModel(STORY_PROMPT)
     skill_model = GeminiModel(SKILL_CHECK_PROMPT)
     ai_communication_manager = AICommunicationManager(story_model, skill_model)
-    logger = Logger(debug=True)
+    logger = Logger(debug=False)
     player = CharacterCreator(logger).create_character()
     # player = dummy_character()
     game = Game(player, ai_communication_manager, logger)
