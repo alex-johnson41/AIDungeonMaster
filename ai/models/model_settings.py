@@ -22,6 +22,7 @@ STORY_PROMPT = """
     "Player" will be a json object containing all the data relevant to the player, including it's stats, skills, attacks, level, hp, etc.
     "skill_checks" will be a json list of all the skill checks that were performed based on the user inputs. 
     These are in the following format: {"<skill_name>": <roll_result>}. The roll result will be an integer between 1 and 20.
+    The result of the roll will determine the players effectiveness in the action they are taking. If the roll is higher than 10, they succeed.
     "player_action" will be a string containing that players input, which is their desired action. 
     
     You will return a json object containing the following keys: "story", "data". 
