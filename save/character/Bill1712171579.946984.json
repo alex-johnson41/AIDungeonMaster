@@ -1,0 +1,54 @@
+{
+    "name": "Bill",
+    "stats": {
+        "strength": 16,
+        "dexterity": 15,
+        "constitution": 14,
+        "intelligence": 13,
+        "wisdom": 11,
+        "charisma": 9
+    },
+    "skills": {
+        "acrobatics": 2,
+        "animal_handling": 0,
+        "arcana": 1,
+        "athletics": 3,
+        "deception": -1,
+        "history": 1,
+        "insight": 0,
+        "intimidation": -1,
+        "investigation": 1,
+        "medicine": 0,
+        "nature": 1,
+        "perception": 0,
+        "performance": -1,
+        "persuasion": -1,
+        "religion": 1,
+        "sleight_of_hand": 2,
+        "stealth": 2,
+        "survival": 0
+    },
+    "attacks": [],
+    "level": 1,
+    "hp": 10,
+    "hp_max": 10,
+    "xp": 0,
+    "inventory": {
+        "capacity": 10,
+        "items": [
+            {
+                "type": "weapon",
+                "name": "Sword",
+                "range": 5
+            }
+        ]
+    },
+    "armor": 0,
+    "speed": 30,
+    "klass": {
+        "name": "Fighter"
+    },
+    "race": {
+        "name": "Human"
+    }
+}
