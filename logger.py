@@ -22,9 +22,11 @@ class Logger:
             self.log("/debug - Toggles debug mode")
             self.log("/inventory - Displays your inventory (only available in game)")
             self.log("/help - Displays this message")
+            response = self.input(message)
         elif response == "/exit":
             exit()
         elif response == "/debug":
             self.debug = not self.debug
             self.log(f"Debug mode set to: {self.debug}")
+            response = self.input(message)
         return response
