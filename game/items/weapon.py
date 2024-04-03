@@ -7,6 +7,7 @@ class Weapon(AbstractItem):
 
     def to_json(self) -> dict:
         return {
+            "type": "weapon",
             "name": self.name,
             "range": self.range
         }

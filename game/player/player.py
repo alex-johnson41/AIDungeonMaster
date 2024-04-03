@@ -1,3 +1,6 @@
+from __future__ import annotations
+from character_creation.klass.klass_factory import KlassFactory
+from character_creation.race.race_factory import RaceFactory
 from game.inventory import Inventory
 from .attack import Attack
 from character_creation.klass.abstract_klass import AbstractKlass
@@ -52,7 +55,28 @@ class Player:
             "level": self.level,
             "hp": self.hp,
             "hp_max": self.hp_max,
+            "xp": self.xp,
             "inventory": self.inventory.to_json(),
             "armor": self.armor,
             "speed": self.speed,
+            "klass": self.klass.to_json(),
+            "race": self.race.to_json(),
         }
+    
+    @staticmethod
+    def from_json(json: dict) -> Player:
+        player = Player(
+            json["name"],
+            Stats.from_json(json["stats"]),
+            Skills(json["skills"]),
+            [Attack.from_json(attack) for attack in json["attacks"]],
+            json["hp_max"],
+            KlassFactory().create_klass(json["klass"]["name"]),
+            RaceFactory().create_race(json["race"]["name"]),
+            Inventory.from_json(json["inventory"]),
+            json["armor"]
+        )
+        player.xp = json["xp"]
+        player.level = json["level"]
+        player.hp = json["hp"]
+        return player

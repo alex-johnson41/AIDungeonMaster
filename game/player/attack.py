@@ -1,3 +1,4 @@
+from __future__ import annotations
 from game.die import Die
 
 
@@ -18,3 +19,12 @@ class Attack:
             "range": self.range,
             "damage": self.damage.to_string()
         }
+    
+    @staticmethod
+    def from_json(json: dict) -> Attack:
+        return Attack(
+            json["name"],
+            json["bonus"],
+            json["range"],
+            Die(json["damage"])
+        )

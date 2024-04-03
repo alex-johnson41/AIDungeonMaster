@@ -7,5 +7,6 @@ class Item(AbstractItem):
 
     def to_json(self) -> dict:
         return {
+            "type": "item",
             "name": self.name
         }

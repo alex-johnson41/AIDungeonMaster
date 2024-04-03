@@ -1,3 +1,4 @@
+from __future__ import annotations
 from game.items.currency import Currency
 from game.items.item import Item
 from game.items.weapon import Weapon
@@ -33,3 +34,10 @@ class Inventory:
             "capacity": self.capacity,
             "items": [item.to_json() for item in self.items]
         }
+    
+    @staticmethod
+    def from_json(json: dict) -> Inventory:
+        inventory = Inventory(json["capacity"])
+        for item_data in json["items"]:
+            inventory.add_item(item_data)
+        return inventory

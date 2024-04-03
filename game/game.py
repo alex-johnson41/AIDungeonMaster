@@ -1,3 +1,6 @@
+import json
+import time
+import os
 from ai.communication.ai_communication_manager import AICommunicationManager
 from ai.communication.ai_story_output import AIStoryOutput
 from ai.communication.ai_skill_check_output import AISkillCheckOutput
@@ -24,7 +27,9 @@ class Game:
         # It's farily cleaned up now but it could be better/easier to follow
         player_prompt = self.get_user_action()
         if player_prompt == "/inventory":
-                self.logger.log(str(self.player.inventory.to_json()))
+            self.logger.log(str(self.player.inventory.to_json()))
+        elif player_prompt == "/save":
+            self.save_player()
         else:
             skill_checks = self.perform_skill_checks(self.find_skill_checks(player_prompt)) 
             response = self.get_next_story(player_prompt, skill_checks)
@@ -67,3 +72,11 @@ class Game:
             except:
                 pass
         return results
+
+    def save_player(self) -> None:
+        dir_path = os.path.join(os.getcwd(), "save", "character")
+        os.makedirs(dir_path, exist_ok=True)
+        file_path = os.path.join(dir_path, f"{self.player.name}{time.time()}.json")
+        with open(file_path, "w") as file:
+            file.write(json.dumps(self.player.to_json(), indent=4))
+        self.logger.log("Character saved.")

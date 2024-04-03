@@ -19,3 +19,14 @@ class Stats:
             "wisdom": self.wisdom,
             "charisma": self.charisma
         }
+    
+    @staticmethod
+    def from_json(json: dict) -> dict:
+        return Stats(
+            json["strength"],
+            json["dexterity"],
+            json["constitution"],
+            json["intelligence"],
+            json["wisdom"],
+            json["charisma"]
+        )
