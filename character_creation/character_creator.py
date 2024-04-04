@@ -14,16 +14,17 @@ class CharacterCreator:
 
     def create_character(self) -> Player:
         # Calls different functions that help the user build thier character
-        name = self.logger.input("Enter a name for your character: ")
+        name = self.logger.input("\nEnter a name for your character: ")
         race = self.chooseRace()
         klass = self.chooseKlass()
         stats = self.assignStats(race)
-        skills = self.calculateSkills(stats)
+        proficiencies = self.pro_skills(klass)
+        skills = self.calculateSkills(stats, proficiencies)
         return Player(name, stats, skills, [], 10, klass, race, Inventory(10), 0)
         
     def chooseRace(self) -> AbstractRace:
         # User chooses a race from the listed options and enters the number as input
-        self.logger.log("Choose a Race for your Character:\n\n1.Human\n2.Elf (Not Available)\n3.Dwarf (Not Available)\n")
+        self.logger.log("\nChoose a Race for your Character:\n\n1.Human\n2.Elf (Not Available)\n3.Dwarf (Not Available)\n")
         while True:
             choice = self.logger.input("Enter number: ")
             if choice == "1":
@@ -41,7 +42,7 @@ class CharacterCreator:
                 
     def chooseKlass(self) -> AbstractKlass:
         # User chooses a class from the listed options and enters the number as input
-        self.logger.log("Choose a Class for your Character:\n\n1.Fighter\n2.Wizard (Not Available)\n3.Rogue (Not Available)\n")
+        self.logger.log("\nChoose a Class for your Character:\n\n1.Fighter\n2.Wizard (Not Available)\n3.Rogue (Not Available)\n")
         while True:
             choice = self.logger.input("Enter the number of your choice: ")
             if choice == "1":
@@ -80,49 +81,62 @@ class CharacterCreator:
                      assignedValues.get("constitution"), assignedValues.get("intelligence"),
                      assignedValues.get("wisdom"), assignedValues.get("charisma"))
             
-    def calculateSkills(self, stats) -> Skills:
+    def calculateSkills(self, stats, proficiencies) -> Skills:
         # Calculates the modifier of each skill from the ability scores. Each skill and it's modifier is printed for the user to see.
+        all_skills = {"acrobatics": "dexterity","animal handling":"wisdom","arcana":"intelligence","athletics":"strength",
+                      "deception": "charisma","history": "intelligence","insight": "wisdom","intimidation": "charisma",
+                      "investigation": "intelligence","medicine": "wisdom","nature": "intelligence","perception": "wisdom",
+                      "performance": "charisma","persuasion": "charisma","religion": "intelligence","sleight of hand": "dexterity",
+                      "stealth": "dexterity","survival": "wisdom"}
+        skill_mods = {}
         self.logger.log("\nHere are your character's skill modifiers:")
-        acrobatics = stats.get_modifier("dexterity")
-        self.logger.log("Acrobatics = "+str(acrobatics))
-        animal_handling = stats.get_modifier("wisdom")
-        self.logger.log("Animal Handling = "+str(animal_handling))
-        arcana = stats.get_modifier("intelligence")
-        self.logger.log("Arcana = "+str(arcana))
-        athletics = stats.get_modifier("strength")
-        self.logger.log("Athletics = "+str(athletics))
-        deception = stats.get_modifier("charisma")
-        self.logger.log("Deception = "+str(deception))
-        history = stats.get_modifier("intelligence")
-        self.logger.log("History = "+str(history))
-        insight = stats.get_modifier("wisdom")
-        self.logger.log("Insight = "+str(insight))
-        intimidation = stats.get_modifier("charisma")
-        self.logger.log("Intimidation = "+str(intimidation))
-        investigation = stats.get_modifier("intelligence")
-        self.logger.log("Investigation = "+str(investigation))
-        medicine = stats.get_modifier("wisdom")
-        self.logger.log("Medicine = "+str(medicine))
-        nature = stats.get_modifier("intelligence")
-        self.logger.log("Nature = "+str(nature))
-        perception = stats.get_modifier("wisdom")
-        self.logger.log("Perception = "+str(perception))
-        performance = stats.get_modifier("charisma")
-        self.logger.log("Performance = "+str(performance))
-        persuation = stats.get_modifier("charisma")
-        self.logger.log("Persuation = "+str(persuation))
-        religion = stats.get_modifier("intelligence")
-        self.logger.log("Religion = "+str(religion))
-        sleight_of_hand = stats.get_modifier("dexterity")
-        self.logger.log("Sleight of Hand = "+str(sleight_of_hand))
-        stealth = stats.get_modifier("dexterity")
-        self.logger.log("Stealth = "+str(stealth))
-        survival = stats.get_modifier("wisdom")
-        self.logger.log("Survival = "+str(survival))
+        for key in all_skills:
+            modifier = stats.get_modifier(all_skills[key], proficiencies, key)
+            underscore_key = key.replace(" ", "_")
+            skill_mods[underscore_key] = modifier
+            self.logger.log((key.title()) + " = " + str(modifier))
+        self.logger.log("")
+        return Skills(skill_mods)
         
-        return Skills({"acrobatics": acrobatics, "animal_handling": animal_handling, "arcana": arcana, "athletics": athletics,
-                       "deception": deception, "history": history, "insight": insight, "intimidation": intimidation,
-                       "investigation": investigation, "medicine": medicine, "nature": nature, "perception": perception, 
-                       "performance": performance, "persuasion": persuation, "religion": religion, "sleight_of_hand": sleight_of_hand,
-                       "stealth": stealth, "survival": survival})
-                     
+    def pro_skills(self, klass):
+        all_skills = ["Acrobatics","Animal Handling","Arcana","Athletics","Deception","History",
+                      "Insight","Intimidation","Investigation","Medicine","Nature","Perception",
+                      "Performance","Persuasion","Religion","Sleight of Hand","Stealth", "Survival"]
+        chosen_Skills = {}
+        skill_List = klass.skill_List
+        skills_to_choose = 2
+        self.logger.log("\nSelect TWO skills based on the Class you have chosen.")
+        while skills_to_choose > 0:
+            number = 1
+            self.logger.log("Select a skill to be proficient in:")
+            for skill in skill_List:
+                string = str(number) + ". " + str(skill)
+                self.logger.log(string)
+                number += 1
+            choice = int(self.logger.input("Enter the number of your choice: "))
+            self.logger.log("")
+            # The input for variable 'choice' needs checks
+            # Must be an integer between 1 and len(abilities)
+            all_skills.remove(skill_List[choice-1])
+            choiceKey = (skill_List[choice-1]).lower()
+            #chosen_Skills.update({choiceKey:value+assignedValues[choiceKey]})
+            skill_List.pop(choice-1)
+            skills_to_choose -= 1
+            chosen_Skills[choiceKey] = klass.proficiency_bonus
+        skills_to_choose = 2
+        self.logger.log("\nSelect TWO additional skills to be proficient in.")
+        while skills_to_choose > 0:
+            number = 1
+            self.logger.log("Select a skill to be proficient in:")
+            for skill in all_skills:
+                string = str(number) + ". " + str(skill)           
+                self.logger.log(string)
+                number += 1
+            choice = int(self.logger.input("Enter the number of your choice: "))
+            self.logger.log("")
+            choiceKey = (all_skills[choice-1]).lower()
+            all_skills.pop(choice-1)
+            skills_to_choose -= 1
+            chosen_Skills[choiceKey] = klass.proficiency_bonus
+        return chosen_Skills
+            
