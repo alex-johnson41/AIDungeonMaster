@@ -34,7 +34,7 @@ class Logger:
     # Use to get input from the player
     def input(self, message: str) -> str:
         response = input(message)
-        self.save_to_log(f"{message} {response}")
+        if self.create_log_files: self.save_to_log(f"{message} {response}")
         if response == "/help":
             self.log("Commands: ")
             self.log("/exit - Exits the game")
