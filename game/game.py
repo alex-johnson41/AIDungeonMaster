@@ -39,7 +39,6 @@ class Game:
             self.logger.debug_log(response.to_json()) 
             self.logger.log(response.story)
 
-
     def find_skill_checks(self, prompt: str) -> AISkillCheckOutput:
         return self.ai_communication_manager.skill_communicate(prompt)
     
