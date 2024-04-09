@@ -39,8 +39,6 @@ class Game:
         return self.ai_communication_manager.skill_communicate(prompt)
     
     def initialize_story(self) -> AIStoryOutput:
-        # TODO: Add a file with a list of prompts to start the game with and pick one at random
-        # Maybe add support for the user to input their own starting prompt
         starting_sentence= "This is the start of the game, begin the story with "
         with open("game/prompts.txt", "r") as f: #Pulling from prompts.txt file. One line per prompt added
             prompts = f.readlines()
