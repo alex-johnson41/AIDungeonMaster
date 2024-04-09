@@ -72,6 +72,7 @@ class CharacterCreator:
             self.logger.log("\nWhich Ability would you like to assign a value of " + str(value) + " to?")
             number = 1
             for ability in abilities:
+                # Prints list of remaining abilities
                 string = str(number) + ". " + str(ability)
                 self.logger.log(string)
                 number += 1
@@ -94,7 +95,7 @@ class CharacterCreator:
                      assignedValues.get("constitution"), assignedValues.get("intelligence"),
                      assignedValues.get("wisdom"), assignedValues.get("charisma"))
             
-    def calculateSkills(self, stats: Stats, proficiencies) -> Skills:
+    def calculateSkills(self, stats: Stats, proficiencies: dict) -> Skills:
         # Calculates the modifier of each skill from the ability scores. Each skill and it's modifier is printed for the user to see.
         all_skills = {"acrobatics": "dexterity","animal handling":"wisdom","arcana":"intelligence","athletics":"strength",
                       "deception": "charisma","history": "intelligence","insight": "wisdom","intimidation": "charisma",
@@ -111,7 +112,7 @@ class CharacterCreator:
         self.logger.log("")
         return Skills(skill_mods)
         
-    def pro_skills(self, klass) -> dict:
+    def pro_skills(self, klass: AbstractKlass) -> dict:
         # Returns a dictionary of proficient skills chosen by the user. The value of each skill is the proficiency bonus for 
         # that skill
         all_skills = ["Acrobatics","Animal Handling","Arcana","Athletics","Deception","History",
