@@ -163,3 +163,4 @@ config.py
 .vscode
 .vs
 .DS_Store
+save/
