@@ -47,9 +47,7 @@ class Game:
         starting_sentence= "This is the start of the game, begin the story with "
         with open("game/prompts.txt", "r") as f: #Pulling from prompts.txt file. One line per prompt added
             prompts = f.readlines()
-
         prompt = starting_sentence.join(random.choice(prompts))
-        #prompt = "This is the start of the game, begin the story with the player waking up outside of a bar hungover." ## DEFAULT PROMPT
         return self.ai_communication_manager.story_communicate(self.player, {}, prompt)
     
     def get_next_story(self, player_prompt: str, skill_checks: dict[str, int]) -> AIStoryOutput:
