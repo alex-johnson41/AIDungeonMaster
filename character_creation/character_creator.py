@@ -1,6 +1,10 @@
 from character_creation.klass.abstract_klass import AbstractKlass
 from character_creation.klass.fighter import Fighter
+from character_creation.klass.rogue import Rogue
+from character_creation.klass.wizard import Wizard
 from character_creation.race.abstract_race import AbstractRace
+from character_creation.race.dwarf import Dwarf
+from character_creation.race.elf import Elf
 from character_creation.race.human import Human
 from game.inventory import Inventory
 from game.player.player import Player
@@ -24,7 +28,7 @@ class CharacterCreator:
         
     def chooseRace(self) -> AbstractRace:
         # User chooses a race from the listed options and enters the number as input
-        self.logger.log("\nChoose a Race for your Character:\n\n1.Human\n2.Elf (Not Available)\n3.Dwarf (Not Available)\n")
+        self.logger.log("\nChoose a Race for your Character:\n\n1.Human\n2.Elf\n3.Dwarf\n")
         while True:
             choice = self.logger.input("Enter number: ")
             if choice == "1":
@@ -32,17 +36,17 @@ class CharacterCreator:
                 return Human()
             elif choice == "2":
                 #Elf race Selected
-                self.logger.log("Elf is not available at this time. Please make another choice.")
+                return Elf()
             elif choice == "3":
                 #Dwarf race Selected
-                self.logger.log("Dwarf is not available at this time. Please make another choice.")
+                return Dwarf()
             else:
                 #choice is incorrect
                 self.logger.log("Please enter the number of your choice.")
                 
     def chooseKlass(self) -> AbstractKlass:
         # User chooses a class from the listed options and enters the number as input
-        self.logger.log("\nChoose a Class for your Character:\n\n1.Fighter\n2.Wizard (Not Available)\n3.Rogue (Not Available)\n")
+        self.logger.log("\nChoose a Class for your Character:\n\n1.Fighter\n2.Wizard\n3.Rogue\n")
         while True:
             choice = self.logger.input("Enter the number of your choice: ")
             if choice == "1":
@@ -50,10 +54,10 @@ class CharacterCreator:
                 return Fighter()
             elif choice == "2":
                 #Wizard Class Selected
-                self.logger.log("Wizard is not available at this time. Please make another choice.")
+                return Wizard()
             elif choice == "3":
                 #Rogue Class Selected
-                self.logger.log("Rogue is not available at this time. Please make another choice.")
+                return Rogue()
             else:
                 #choice is incorrect
                 self.logger.log("Please enter the number of your choice.")
@@ -71,12 +75,21 @@ class CharacterCreator:
                 string = str(number) + ". " + str(ability)
                 self.logger.log(string)
                 number += 1
-            choice = int(self.logger.input("Enter the number of your choice: "))
-            # The input for variable 'choice' needs checks
-            # Must be an integer between 1 and len(abilities)
-            choiceKey = (abilities[choice-1]).lower()
-            assignedValues.update({choiceKey:value+assignedValues[choiceKey]})
-            abilities.pop(choice-1)
+            input_valid = False
+            while (not input_valid):
+                try:
+                    choice = int(self.logger.input("Enter the number of your choice: "))
+                except:
+                    self.logger.log("Invalid Input: Please enter the number of your choice")
+                else:
+                    if choice <= 0 or choice > len(abilities):
+                        self.logger.log("Invalid Input: Please enter the number of one of the choices.")
+                    else:
+                        choiceKey = (abilities[choice-1]).lower()
+                        assignedValues.update({choiceKey:value+assignedValues[choiceKey]})
+                        abilities.pop(choice-1)
+                        input_valid = True
+                    
         return Stats(assignedValues.get("strength"), assignedValues.get("dexterity"),
                      assignedValues.get("constitution"), assignedValues.get("intelligence"),
                      assignedValues.get("wisdom"), assignedValues.get("charisma"))
@@ -98,33 +111,44 @@ class CharacterCreator:
         self.logger.log("")
         return Skills(skill_mods)
         
-    def pro_skills(self, klass):
+    def pro_skills(self, klass) -> dict:
+        # Returns a dictionary of proficient skills chosen by the user. The value of each skill is the proficiency bonus for 
+        # that skill
         all_skills = ["Acrobatics","Animal Handling","Arcana","Athletics","Deception","History",
                       "Insight","Intimidation","Investigation","Medicine","Nature","Perception",
                       "Performance","Persuasion","Religion","Sleight of Hand","Stealth", "Survival"]
-        chosen_Skills = {}
-        skill_List = klass.skill_List
-        skills_to_choose = 2
-        self.logger.log("\nSelect TWO skills based on the Class you have chosen.")
+        chosen_skills = {}
+        skill_list = klass.skill_List
+        skills_to_choose = klass.skills_to_choose
+        self.logger.log("\nSelect skills based on the Class you have chosen.")
         while skills_to_choose > 0:
             number = 1
             self.logger.log("Select a skill to be proficient in:")
-            for skill in skill_List:
+            for skill in skill_list:
                 string = str(number) + ". " + str(skill)
                 self.logger.log(string)
                 number += 1
-            choice = int(self.logger.input("Enter the number of your choice: "))
-            self.logger.log("")
-            # The input for variable 'choice' needs checks
-            # Must be an integer between 1 and len(abilities)
-            all_skills.remove(skill_List[choice-1])
-            choiceKey = (skill_List[choice-1]).lower()
-            #chosen_Skills.update({choiceKey:value+assignedValues[choiceKey]})
-            skill_List.pop(choice-1)
-            skills_to_choose -= 1
-            chosen_Skills[choiceKey] = klass.proficiency_bonus
-        skills_to_choose = 2
-        self.logger.log("\nSelect TWO additional skills to be proficient in.")
+            input_valid = False
+            while (not input_valid):
+                # Get user input. Use try to make sure input is an integer. 
+                try:
+                    choice = int(self.logger.input("Enter the number of your choice: "))
+                except:
+                    self.logger.log("Invalid Input: Please enter the number of your choice")
+                else:
+                    # check to make sure choice is between zero and len(skill_list)
+                    if choice <= 0 or choice > len(skill_list):
+                        self.logger.log("Invalid Input: Please enter the number of one of the choices.")
+                    else:
+                        self.logger.log("")
+                        all_skills.remove(skill_list[choice-1])
+                        choice_key = (skill_list[choice-1]).lower()
+                        skill_list.pop(choice-1)
+                        skills_to_choose -= 1
+                        chosen_skills[choice_key] = klass.proficiency_bonus
+                        input_valid = True
+        skills_to_choose = 4 - klass.skills_to_choose
+        self.logger.log("\nSelect additional skills to be proficient in.")
         while skills_to_choose > 0:
             number = 1
             self.logger.log("Select a skill to be proficient in:")
@@ -132,11 +156,23 @@ class CharacterCreator:
                 string = str(number) + ". " + str(skill)           
                 self.logger.log(string)
                 number += 1
-            choice = int(self.logger.input("Enter the number of your choice: "))
-            self.logger.log("")
-            choiceKey = (all_skills[choice-1]).lower()
-            all_skills.pop(choice-1)
-            skills_to_choose -= 1
-            chosen_Skills[choiceKey] = klass.proficiency_bonus
-        return chosen_Skills
+            input_valid = False
+            while (not input_valid):
+                # Get user input. Use try to make sure input is an int.
+                try:
+                    choice = int(self.logger.input("Enter the number of your choice: "))
+                except:
+                    self.logger.log("Invalid Input: Please enter the number of your choice")
+                else:
+                    # check to make sure choice is between zero and len(all_skills)
+                    if choice <= 0 or choice > len(all_skills):
+                        self.logger.log("Invalid Input: Please enter the number of one of the choices.")
+                    else:
+                        self.logger.log("")
+                        choice_key = (all_skills[choice-1]).lower()
+                        all_skills.pop(choice-1)
+                        skills_to_choose -= 1
+                        chosen_skills[choice_key] = klass.proficiency_bonus
+                        input_valid = True
+        return chosen_skills
             

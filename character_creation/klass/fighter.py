@@ -7,4 +7,4 @@ class Fighter(AbstractKlass):
         self.base_hp = 10
         self.skill_List = ["Acrobatics", "Animal Handling", "Athletics", "History",
                       "Insight", "Intimidation", "Perception", "Survival"]
-    
+        self.skills_to_choose = 2
