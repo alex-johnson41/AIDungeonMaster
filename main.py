@@ -30,7 +30,10 @@ def setup_character(logger: Logger) -> Player:
         if choice == "1":
             return CharacterCreator(logger).create_character()
         elif choice == "2":
-            return load_character(logger)
+            try:
+                return load_character(logger)
+            except:
+                logger.log("No character files found. Please create a character.")
         else:
             logger.log("Please enter the number of your choice.")
 
