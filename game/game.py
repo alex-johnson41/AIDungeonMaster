@@ -7,6 +7,7 @@ from ai.communication.ai_skill_check_output import AISkillCheckOutput
 from game.die import Die
 from game.player.player import Player
 from logger import Logger
+import random
 
 
 class Game:
@@ -23,8 +24,6 @@ class Game:
             self.take_turn()
 
     def take_turn(self) -> None:
-        # TODO: Fix this, it's a very rough start and can be cleaned up
-        # It's farily cleaned up now but it could be better/easier to follow
         player_prompt = self.get_user_action()
         if player_prompt == "/inventory":
             self.logger.log(str(self.player.inventory.to_json()))
@@ -38,14 +37,14 @@ class Game:
             self.logger.debug_log(response.to_json()) 
             self.logger.log(response.story)
 
-
     def find_skill_checks(self, prompt: str) -> AISkillCheckOutput:
         return self.ai_communication_manager.skill_communicate(prompt)
     
     def initialize_story(self) -> AIStoryOutput:
-        # TODO: Add a file with a list of prompts to start the game with and pick one at random
-        # Maybe add support for the user to input their own starting prompt
-        prompt = "This is the start of the game, begin the story with the player waking up outside of a bar hungover."
+        starting_sentence= "This is the start of the game, begin the story with "
+        with open("game/prompts.txt", "r") as f: #Pulling from prompts.txt file. One line per prompt added
+            prompts = f.readlines()
+        prompt = starting_sentence.join(random.choice(prompts))
         return self.ai_communication_manager.story_communicate(self.player, {}, prompt)
     
     def get_next_story(self, player_prompt: str, skill_checks: dict[str, int]) -> AIStoryOutput:

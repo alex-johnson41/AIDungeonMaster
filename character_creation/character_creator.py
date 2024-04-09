@@ -62,7 +62,7 @@ class CharacterCreator:
                 #choice is incorrect
                 self.logger.log("Please enter the number of your choice.")
                 
-    def assignStats(self, race) -> Stats:
+    def assignStats(self, race: AbstractRace) -> Stats:
         # Values are presented to the use with a list of abilities. The user selects one ability to assign each value.
         # Races have increases for different abilities. Those are added in this function as well.
         values = [15,14,13,12,10,8]
@@ -94,7 +94,11 @@ class CharacterCreator:
                      assignedValues.get("constitution"), assignedValues.get("intelligence"),
                      assignedValues.get("wisdom"), assignedValues.get("charisma"))
             
-    def calculateSkills(self, stats, proficiencies) -> Skills:
+<<<<<<< HEAD
+    def calculateSkills(self, stats: Stats, proficiencies) -> Skills:
+=======
+    def calculateSkills(self, stats: Stats) -> Skills:
+>>>>>>> aef74787ef3ad6a986a23254d5cccc2c8b0645d1
         # Calculates the modifier of each skill from the ability scores. Each skill and it's modifier is printed for the user to see.
         all_skills = {"acrobatics": "dexterity","animal handling":"wisdom","arcana":"intelligence","athletics":"strength",
                       "deception": "charisma","history": "intelligence","insight": "wisdom","intimidation": "charisma",
