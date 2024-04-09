@@ -7,8 +7,11 @@ class Stats:
         self.wisdom = wisdom
         self.charisma = charisma
 
-    def get_modifier(self, ability: str) -> int:
-        return (self.__getattribute__(ability) - 10) // 2
+    def get_modifier(self, ability: str, proficiencies: dict, skill: str) -> int:
+        modifier = (self.__getattribute__(ability) - 10) //2
+        if skill in proficiencies.keys():
+            modifier += proficiencies[skill]
+        return modifier
     
     def to_json(self) -> dict:
         return {
