@@ -75,7 +75,7 @@ class CharacterCreator:
                 string = str(number) + ". " + str(ability)
                 self.logger.log(string)
                 number += 1
-            choice = self.validate_input(len(abilities))
+            choice = self.get_valid_input(len(abilities))
             choiceKey = (abilities[choice-1]).lower()
             assignedValues.update({choiceKey:value+assignedValues[choiceKey]})
             abilities.pop(choice-1)
@@ -118,7 +118,7 @@ class CharacterCreator:
                 string = str(number) + ". " + str(skill)
                 self.logger.log(string)
                 number += 1
-            choice = self.validate_input(len(skill_list))
+            choice = self.get_valid_input(len(skill_list))
             self.logger.log("")
             all_skills.remove(skill_list[choice-1])
             choice_key = (skill_list[choice-1]).lower()
@@ -134,7 +134,7 @@ class CharacterCreator:
                 string = str(number) + ". " + str(skill)           
                 self.logger.log(string)
                 number += 1
-            choice = self.validate_input(len(all_skills))
+            choice = self.get_valid_input(len(all_skills))
             self.logger.log("")
             choice_key = (all_skills[choice-1]).lower()
             all_skills.pop(choice-1)
@@ -142,12 +142,12 @@ class CharacterCreator:
             chosen_skills[choice_key] = klass.proficiency_bonus
         return chosen_skills
             
-    def validate_input(self, input_max: int) -> int:
+    def get_valid_input(self, input_max: int) -> int:
         # Validates user input to make sure it is an integer and within the range of valid input
         try:
             choice = int(self.logger.input("Enter the number of your choice: "))
             if choice <= 0 or choice > input_max: raise ValueError
         except:
             self.logger.log("Invalid Input: Please enter the number of your choice")
-            return self.validate_input(input_max)
+            return self.get_valid_input(input_max)
         return choice
