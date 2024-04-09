@@ -4,6 +4,7 @@ from ai.communication.ai_skill_check_output import AISkillCheckOutput
 from game.die import Die
 from game.player.player import Player
 from logger import Logger
+import random
 
 
 class Game:
@@ -40,7 +41,12 @@ class Game:
     def initialize_story(self) -> AIStoryOutput:
         # TODO: Add a file with a list of prompts to start the game with and pick one at random
         # Maybe add support for the user to input their own starting prompt
-        prompt = "This is the start of the game, begin the story with the player waking up outside of a bar hungover."
+        starting_sentence= "This is the start of the game, begin the story with "
+        with open("game/prompts.txt", "r") as f: #Pulling from prompts.txt file. One line per prompt added
+            prompts = f.readlines()
+
+        prompt = starting_sentence.join(random.choice(prompts))
+        #prompt = "This is the start of the game, begin the story with the player waking up outside of a bar hungover." ## DEFAULT PROMPT
         return self.ai_communication_manager.story_communicate(self.player, {}, prompt)
     
     def get_next_story(self, player_prompt: str, skill_checks: dict[str, int]) -> AIStoryOutput:
