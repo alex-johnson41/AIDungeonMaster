@@ -33,9 +33,9 @@ class Game:
             skill_checks = self.perform_skill_checks(self.find_skill_checks(player_prompt)) 
             response = self.get_next_story(player_prompt, skill_checks)
             self.update_player(response)
-            self.logger.debug_log(skill_checks)
-            self.logger.debug_log(response.to_json()) 
-            self.logger.log(response.story)
+            self.logger.debug_log(str(skill_checks))
+            self.logger.debug_log(str(response.to_json())) 
+            self.logger.log(response.story, story=True)
 
     def find_skill_checks(self, prompt: str) -> AISkillCheckOutput:
         return self.ai_communication_manager.skill_communicate(prompt)
