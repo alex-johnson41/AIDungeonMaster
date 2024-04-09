@@ -19,7 +19,7 @@ class Game:
     def play(self) -> None:
         # TODO: Implement game ending conditions (death, victory, etc.)
         output = self.initialize_story()
-        self.logger.log(output.story)
+        self.logger.log(output.story, story=True)
         while (True):
             self.take_turn()
 
