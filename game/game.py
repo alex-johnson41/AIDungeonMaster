@@ -24,8 +24,6 @@ class Game:
             self.take_turn()
 
     def take_turn(self) -> None:
-        # TODO: Fix this, it's a very rough start and can be cleaned up
-        # It's farily cleaned up now but it could be better/easier to follow
         player_prompt = self.get_user_action()
         if player_prompt == "/inventory":
             self.logger.log(str(self.player.inventory.to_json()))
