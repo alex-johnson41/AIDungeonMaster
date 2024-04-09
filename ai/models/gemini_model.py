@@ -1,7 +1,7 @@
 import google.generativeai as genai
 import config
 from ai.models.abstract_ai_model import AbstractAIModel
-from .model_settings import SAFETY_SETTINGS
+from constants import SAFETY_SETTINGS
 
 
 class GeminiModel(AbstractAIModel):

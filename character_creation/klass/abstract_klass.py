@@ -7,6 +7,8 @@ class AbstractKlass(ABC):
         self.name = str
         self.proficiency_bonus = None
         self.base_hp = None
+        self.skill_List = []
+        self.skills_to_choose = None
 
     def to_json(self) -> dict:
         return {

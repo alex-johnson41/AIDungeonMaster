@@ -2,40 +2,17 @@ import json
 import os
 from ai.communication.ai_communication_manager import AICommunicationManager
 from ai.models.gemini_model import GeminiModel
-from ai.models.model_settings import SKILL_CHECK_PROMPT, STORY_PROMPT
+from constants import SKILL_CHECK_PROMPT, STORY_PROMPT
 from character_creation.character_creator import CharacterCreator
-from character_creation.klass.fighter import Fighter
-from character_creation.race.human import Human
 from game.game import Game
-from game.inventory import Inventory
 from game.player.player import Player
-from game.player.skills import Skills
-from game.player.stats import Stats
 from logger import Logger
 
-
-"""
-FEATURES TO ADD: 
-- Save and load characters
-- Save and load games
-
-
-"""
-def dummy_character() -> Player:
-    stats = Stats(10, 10, 10, 10, 10, 10)
-    skills = Skills({"acrobatics": 0, "animal_handling": 0, "arcana": 0, "athletics": 0, "deception": 0, 
-                     "history": 0, "insight": 0, "intimidation": 0, "investigation": 0, "medicine": 0, 
-                     "nature": 0, "perception": 0, "performance": 0, "persuasion": 0, "religion": 0, 
-                     "sleight_of_hand": 0, "stealth": 0, "survival": 0
-                     })
-
-    return Player("Test", stats, skills, [], 10, Fighter(), Human(), Inventory(10), 0)
 
 def play():
     logger = Logger(debug=False)
     logger.log("\nWelcome to DungeonMaster AI!\n(/help for commands)")
     player = setup_character(logger)
-    # player = dummy_character()
     logger.log("Initializing game...")
     game = setup_game(logger, player)
     game.play()

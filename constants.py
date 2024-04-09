@@ -1,3 +1,12 @@
+STARTING_PROMPTS = [
+    "the player waking up outside of a bar hungover.",
+    "the player waking up in a dark cave, with no memory of how they got there.",
+    "the player waking up in a dimly lit dungeon cell, they were knocked out and captured by bandits.",
+    "the player waking up in a forest, with no memory of how they got there.",
+    "the player has losing their memory and waking up in a strange town, with no money to their name.",
+    "the player lost a bet last night while out drinking and is flat broke. They just arrived at the local guild to find a job.",
+]
+
 SKILL_CHECK_PROMPT = """
     You are going to return a json list, and nothing else. I am going to give you an action 
     I want to make in my dungeons and dragons game, and you are going to return a json list of 
