@@ -39,7 +39,6 @@ class Player:
     
     def take_damage(self, damage: int) -> None:
         self.hp -= damage
-        #TODO: Implement death
     
     def heal(self, hp: int) -> None:
         self.hp += hp
