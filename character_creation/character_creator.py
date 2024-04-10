@@ -76,10 +76,10 @@ class CharacterCreator:
                 string = str(number) + ". " + str(ability)
                 self.logger.log(string)
                 number += 1
-                choice = self.validate_input(len(abilities))
-                choiceKey = (abilities[choice-1]).lower()
-                assignedValues.update({choiceKey:value+assignedValues[choiceKey]})
-                abilities.pop(choice-1)
+            choice = self.validate_input(len(abilities))
+            choiceKey = (abilities[choice-1]).lower()
+            assignedValues.update({choiceKey:value+assignedValues[choiceKey]})
+            abilities.pop(choice-1)
                     
         return Stats(assignedValues.get("strength"), assignedValues.get("dexterity"),
                      assignedValues.get("constitution"), assignedValues.get("intelligence"),
@@ -135,12 +135,12 @@ class CharacterCreator:
                 string = str(number) + ". " + str(skill)           
                 self.logger.log(string)
                 number += 1
-                choice = self.validate_input(len(all_skills))
-                self.logger.log("")
-                choice_key = (all_skills[choice-1]).lower()
-                all_skills.pop(choice-1)
-                skills_to_choose -= 1
-                chosen_skills[choice_key] = klass.proficiency_bonus
+            choice = self.validate_input(len(all_skills))
+            self.logger.log("")
+            choice_key = (all_skills[choice-1]).lower()
+            all_skills.pop(choice-1)                
+            skills_to_choose -= 1
+            chosen_skills[choice_key] = klass.proficiency_bonus
         return chosen_skills
             
     def validate_input(self, input_max: int) -> int:
