@@ -18,18 +18,24 @@ class Game:
         self.ai_communication_manager = ai_communication_manager
 
     def play(self) -> None:
-        # TODO: Implement game ending conditions (death, victory, etc.)
         output = self.initialize_story()
         self.logger.log(output.story, story=True)
-        while (True):
-            self.take_turn()
+        player_alive = True
+        while (player_alive):
+            player_alive = self.take_turn()
+        self.logger.log("You have died, game over.")
 
-    def take_turn(self) -> None:
+    def take_turn(self) -> bool:
         player_prompt = self.get_user_action()
         if player_prompt == "/inventory":
             self.logger.log(str(self.player.inventory.to_json()))
         elif player_prompt == "/save":
             self.save_player()
+        elif player_prompt == "/hp":
+            self.logger.log(f"Current Hit Points: {self.player.hp}")
+            self.logger.log(f"Max Hit Points: {self.player.hp_max}")
+        elif player_prompt == "/player":
+            self.logger.log(json.dumps(self.player.to_json(), indent=4))
         else:
             skill_checks = self.perform_skill_checks(self.find_skill_checks(player_prompt)) 
             response = self.get_next_story(player_prompt, skill_checks)
@@ -37,6 +43,7 @@ class Game:
             self.logger.debug_log(str(skill_checks))
             self.logger.debug_log(str(response.to_json())) 
             self.logger.log(response.story, story=True)
+        return self.player.hp > 0
 
     def find_skill_checks(self, prompt: str) -> AISkillCheckOutput:
         return self.ai_communication_manager.skill_communicate(prompt)
@@ -54,13 +61,12 @@ class Game:
         self.player.xp += data.xp_earned
         for item in data.new_items:
             self.player.inventory.add_item(item)
-        self.player.hp -= data.damage_taken
+        self.player.take_damage(data.damage_taken)
 
     def get_user_action(self) -> str:
         return self.logger.input("Input your action ('/help' for directions): ")
     
     def perform_skill_checks(self, skill_output: AISkillCheckOutput) -> dict[str, int]:
-        # TODO: Double check that skill checks are always done with a d20
         die = Die(20)
         results = {}
         for skill in skill_output.skill_checks:
