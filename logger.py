@@ -40,6 +40,8 @@ class Logger:
             self.log("/exit - Exits the game")
             self.log("/debug - Toggles debug mode")
             self.log("/inventory - Displays your inventory (only available in game)")
+            self.log("/hp - Displays your current and max hit points (only available in game)")
+            self.log("/player - Displays your character's stats (only available in game)")
             self.log("/save - Saves your game and character (only available in game)")
             self.log("/help - Displays this message")
             response = self.input(message)
