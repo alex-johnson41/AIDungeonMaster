@@ -1,0 +1,54 @@
+
+Welcome to DungeonMaster AI!
+(/help for commands)
+
+Would you like to create a new character or load an existing one?
+1. Create character
+2. Load character
+Enter the number of your choice:  2
+1. Bill1712171579.946984.json
+2. Bob1712687676.259242.json
+Input the number of the character file you would like to load:  1
+Initializing game...
+You begin your adventure in a small tavern. You are sitting at a table, drinking a pint of ale, when you overhear a conversation between two men at the next table.
+
+"Have you heard about the lost treasure of the Shadow King?" one man whispers to the other.
+Input your action ('/help' for directions):  Ask them about the lost treasure
+{'Persuasion': 0, 'Insight': 19}
+{'story': 'You lean over to the table next to you and ask the two men about the lost treasure of the Shadow King.\n\n"What do you know about it?" you ask.\n\nThe two men look at each other and then back at you.\n\n"We\'ve heard rumors," one of the men says. "But we don\'t know anything for sure."', 'xp_earned': 0, 'new_items': [], 'damage_taken': 0}
+You lean over to the table next to you and ask the two men about the lost treasure of the Shadow King.
+
+"What do you know about it?" you ask.
+
+The two men look at each other and then back at you.
+
+"We've heard rumors," one of the men says. "But we don't know anything for sure."
+Input your action ('/help' for directions):  "What rumors?"
+{'Insight': 2}
+{'story': 'The man hesitates for a moment before speaking.\n\n"We\'ve heard that the treasure is hidden in a dungeon beneath the Shadow King\'s castle," he says. "But it\'s said to be guarded by a powerful demon."', 'xp_earned': 0, 'new_items': [], 'damage_taken': 0}
+The man hesitates for a moment before speaking.
+
+"We've heard that the treasure is hidden in a dungeon beneath the Shadow King's castle," he says. "But it's said to be guarded by a powerful demon."
+Input your action ('/help' for directions):  "interesting..."
+{}
+{'story': 'You ponder the information for a moment.\n\n"I\'m interested in learning more about this treasure," you say. "Can you tell me anything else?"', 'xp_earned': 0, 'new_items': [], 'damage_taken': 0}
+You ponder the information for a moment.
+
+"I'm interested in learning more about this treasure," you say. "Can you tell me anything else?"
+Input your action ('/help' for directions):  What else do they say
+{'Insight': 12}
+{'story': 'The man leans in closer and whispers, "I\'ve also heard that the demon is said to be immune to all weapons, except for one: the Sword of Shadows."', 'xp_earned': 0, 'new_items': [], 'damage_taken': 0}
+The man leans in closer and whispers, "I've also heard that the demon is said to be immune to all weapons, except for one: the Sword of Shadows."
+Input your action ('/help' for directions):  Where can I get the sword of shadows?
+{'History': 10, 'Investigation': 20}
+{'story': 'The man shakes his head. "I don\'t know where you can find the Sword of Shadows," he says. "But I\'ve heard that it is said to be hidden in a dangerous place."', 'xp_earned': 0, 'new_items': [], 'damage_taken': 0}
+The man shakes his head. "I don't know where you can find the Sword of Shadows," he says. "But I've heard that it is said to be hidden in a dangerous place."
+Input your action ('/help' for directions):  But you have no idea where it is?
+{'Arcana': 6, 'History': 4}
+{'story': 'The man sighs. "I\'m sorry," he says. "I really don\'t know where the Sword of Shadows is. But if you\'re looking for it, I would suggest starting your search in the old library. There are said to be many ancient texts there that may contain some information about it."', 'xp_earned': 0, 'new_items': [], 'damage_taken': 0}
+The man sighs. "I'm sorry," he says. "I really don't know where the Sword of Shadows is. But if you're looking for it, I would suggest starting your search in the old library. There are said to be many ancient texts there that may contain some information about it."
+Input your action ('/help' for directions):  Thanks 
+{}
+{'story': 'The man smiles. "You\'re welcome," he says. "Good luck on your quest."', 'xp_earned': 0, 'new_items': [], 'damage_taken': 0}
+The man smiles. "You're welcome," he says. "Good luck on your quest."
+Input your action ('/help' for directions):  /exit

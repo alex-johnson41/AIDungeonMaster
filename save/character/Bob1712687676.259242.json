@@ -1,0 +1,48 @@
+{
+    "name": "Bob",
+    "stats": {
+        "strength": 15,
+        "dexterity": 16,
+        "constitution": 15,
+        "intelligence": 13,
+        "wisdom": 15,
+        "charisma": 14
+    },
+    "skills": {
+        "acrobatics": 5,
+        "animal_handling": 4,
+        "arcana": 1,
+        "athletics": 4,
+        "deception": 4,
+        "history": 1,
+        "insight": 4,
+        "intimidation": 2,
+        "investigation": 3,
+        "medicine": 2,
+        "nature": 3,
+        "perception": 2,
+        "performance": 4,
+        "persuasion": 2,
+        "religion": 3,
+        "sleight_of_hand": 3,
+        "stealth": 5,
+        "survival": 2
+    },
+    "attacks": [],
+    "level": 1,
+    "hp": 10,
+    "hp_max": 10,
+    "xp": 0,
+    "inventory": {
+        "capacity": 10,
+        "items": []
+    },
+    "armor": 0,
+    "speed": 30,
+    "klass": {
+        "name": "Fighter"
+    },
+    "race": {
+        "name": "Elf"
+    }
+}

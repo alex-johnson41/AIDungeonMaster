@@ -4,6 +4,7 @@ import os
 from ai.communication.ai_communication_manager import AICommunicationManager
 from ai.communication.ai_story_output import AIStoryOutput
 from ai.communication.ai_skill_check_output import AISkillCheckOutput
+from constants import STARTING_PROMPTS
 from game.die import Die
 from game.player.player import Player
 from logger import Logger
@@ -19,7 +20,7 @@ class Game:
     def play(self) -> None:
         # TODO: Implement game ending conditions (death, victory, etc.)
         output = self.initialize_story()
-        self.logger.log(output.story)
+        self.logger.log(output.story, story=True)
         while (True):
             self.take_turn()
 
@@ -33,18 +34,16 @@ class Game:
             skill_checks = self.perform_skill_checks(self.find_skill_checks(player_prompt)) 
             response = self.get_next_story(player_prompt, skill_checks)
             self.update_player(response)
-            self.logger.debug_log(skill_checks)
-            self.logger.debug_log(response.to_json()) 
-            self.logger.log(response.story)
+            self.logger.debug_log(str(skill_checks))
+            self.logger.debug_log(str(response.to_json())) 
+            self.logger.log(response.story, story=True)
 
     def find_skill_checks(self, prompt: str) -> AISkillCheckOutput:
         return self.ai_communication_manager.skill_communicate(prompt)
     
     def initialize_story(self) -> AIStoryOutput:
         starting_sentence= "This is the start of the game, begin the story with "
-        with open("game/prompts.txt", "r") as f: #Pulling from prompts.txt file. One line per prompt added
-            prompts = f.readlines()
-        prompt = starting_sentence.join(random.choice(prompts))
+        prompt = f"{starting_sentence} {random.choice(STARTING_PROMPTS)}"
         return self.ai_communication_manager.story_communicate(self.player, {}, prompt)
     
     def get_next_story(self, player_prompt: str, skill_checks: dict[str, int]) -> AIStoryOutput:

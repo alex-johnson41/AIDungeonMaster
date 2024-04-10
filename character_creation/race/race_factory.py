@@ -1,4 +1,6 @@
 from character_creation.race.abstract_race import AbstractRace
+from character_creation.race.dwarf import Dwarf
+from character_creation.race.elf import Elf
 from character_creation.race.human import Human
 
 
@@ -7,10 +9,8 @@ class RaceFactory():
         if name == "Human":
             return Human()
         elif name == "Elf":
-            pass
+            return Elf()
         elif name == "Dwarf":
-            pass
-        elif name == "Halfling":
-            pass
+            return Dwarf()
         else:
             raise  
