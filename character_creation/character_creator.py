@@ -1,10 +1,12 @@
 from character_creation.klass.abstract_klass import AbstractKlass
+from character_creation.klass.cleric import Cleric
 from character_creation.klass.fighter import Fighter
 from character_creation.klass.rogue import Rogue
 from character_creation.klass.wizard import Wizard
 from character_creation.race.abstract_race import AbstractRace
 from character_creation.race.dwarf import Dwarf
 from character_creation.race.elf import Elf
+from character_creation.race.halfling import Halfling
 from character_creation.race.human import Human
 from game.inventory import Inventory
 from game.player.player import Player
@@ -28,7 +30,7 @@ class CharacterCreator:
         
     def chooseRace(self) -> AbstractRace:
         # User chooses a race from the listed options and enters the number as input
-        self.logger.log("\nChoose a Race for your Character:\n\n1.Human\n2.Elf\n3.Dwarf\n")
+        self.logger.log("\nChoose a Race for your Character:\n\n1.Human\n2.Elf\n3.Dwarf\n4.Halfling")
         while True:
             choice = self.logger.input("Enter number: ")
             if choice == "1":
@@ -40,13 +42,16 @@ class CharacterCreator:
             elif choice == "3":
                 #Dwarf race Selected
                 return Dwarf()
+            elif choice == "4":
+                #Halfling race selected
+                return Halfling()
             else:
                 #choice is incorrect
                 self.logger.log("Please enter the number of your choice.")
                 
     def chooseKlass(self) -> AbstractKlass:
         # User chooses a class from the listed options and enters the number as input
-        self.logger.log("\nChoose a Class for your Character:\n\n1.Fighter\n2.Wizard\n3.Rogue\n")
+        self.logger.log("\nChoose a Class for your Character:\n\n1.Fighter\n2.Wizard\n3.Rogue\n4.Cleric\n")
         while True:
             choice = self.logger.input("Enter the number of your choice: ")
             if choice == "1":
@@ -58,6 +63,9 @@ class CharacterCreator:
             elif choice == "3":
                 #Rogue Class Selected
                 return Rogue()
+            elif choice == "4":
+                #Cleric Class Selected
+                return Cleric()
             else:
                 #choice is incorrect
                 self.logger.log("Please enter the number of your choice.")
