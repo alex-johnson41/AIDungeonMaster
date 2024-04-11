@@ -9,7 +9,7 @@ class AIStoryOutput:
         data = eval_output["data"]
         self.story: str = eval_output["story"]
         self.xp_earned: int = data["xp_earned"]
-        self.new_items: dict = data["new_items"]
+        self.new_items: list = data["new_items"]
         self.damage_taken: int = data["damage_taken"]
 
     def to_json(self) -> dict:
