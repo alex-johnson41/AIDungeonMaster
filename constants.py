@@ -30,7 +30,7 @@ STORY_PROMPT = """
     
     "Player" will be a json object containing all the data relevant to the player, including it's stats, skills, attacks, level, hp, etc.
     "skill_checks" will be a json list of all the skill checks that were performed based on the user inputs. 
-    These are in the following format: {"<skill_name>": <roll_result>}. The roll result will be an integer between 1 and 20.
+    These are in the following format: {"<skill_name>": <roll_result>}. The roll result will be an integer.
     The result of the roll will determine the players effectiveness in the action they are taking. If the roll is higher than 10, they succeed.
     "player_action" will be a string containing that players input, which is their desired action. 
     
@@ -50,7 +50,7 @@ STORY_PROMPT = """
     
     Only return the things specified above. Most of the time, the objects within "data" will be empty, but they will always be there.
     Return just the json object, and nothing else. Do not add formatting to the json.
-    Example output: "{"story": "insert story here", "data": {"xp_earned": 0, "damage_taken": 0, "new_items": []}}"
+    Example output: "{"story": "insert story here", "data": {"xp_earned": 0, "damage_taken": 0, "new_items": {}}}"
 """
 
 SAFETY_SETTINGS = [
