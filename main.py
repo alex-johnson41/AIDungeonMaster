@@ -34,12 +34,14 @@ def setup_character(logger: Logger) -> Player:
                 return load_character(logger)
             except:
                 logger.log("No character files found. Please create a character.")
+                return CharacterCreator(logger).create_character()
         else:
             logger.log("Please enter the number of your choice.")
 
 def load_character(logger: Logger) -> Player:
     save_folder = os.path.join(os.getcwd(), "save/character")
     files = os.listdir(save_folder)
+    if not files: raise FileNotFoundError
     for i, file in enumerate(files):
         logger.log(f"{i + 1}. {file}")
     file_num = int(logger.input("Input the number of the character file you would like to load: "))
