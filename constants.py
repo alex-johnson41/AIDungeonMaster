@@ -38,7 +38,7 @@ STORY_PROMPT = """
     
     "story" will be a string containing the next part of the story. You are in control of this, only generate a small
     piece of the story, going until the player needs to make another action to progress it. The story should be affected by the
-    results of the skill checks and the player's action. Generate the story until the player is about to make and action, and then stop.
+    results of the skill checks and the player's action. Generate the story until the player is about to make an action, and then stop.
     
     "data" will be a json object containing all of the data that you changed in the game. It will have the following keys: "xp_earned", "damage_taken", "new_items". 
     "xp_earned" will be an integer, "damage_taken" will be an integer, and "new_items" will be a dictionary 
