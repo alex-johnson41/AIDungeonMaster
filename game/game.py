@@ -38,10 +38,10 @@ class Game:
             self.logger.log(json.dumps(self.player.to_json(), indent=4))
         else:
             skill_checks = self.perform_skill_checks(self.find_skill_checks(player_prompt)) 
-            response = self.get_next_story(player_prompt, skill_checks)
-            self.update_player(response)
             self.logger.debug_log(str(skill_checks))
-            self.logger.debug_log(str(response.to_json())) 
+            response = self.get_next_story(player_prompt, skill_checks)
+            self.logger.debug_log(str(response.to_json()))
+            self.update_player(response) 
             self.logger.log(response.story, story=True)
         return self.player.hp > 0
 
