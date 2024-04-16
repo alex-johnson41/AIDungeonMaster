@@ -28,7 +28,7 @@ class Game:
     def take_turn(self) -> bool:
         player_prompt = self.get_user_action()
         if player_prompt == "/inventory":
-            self.logger.log(str(self.player.inventory.to_json()))
+            self.logger.log(json.dumps(self.player.inventory.to_json(), indent=4))
         elif player_prompt == "/save":
             self.save_player()
         elif player_prompt == "/hp":
