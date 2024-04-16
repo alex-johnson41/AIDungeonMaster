@@ -1,5 +1,10 @@
 # AIDungeonMaster
 
+## Try it out!
+- Download an executable [here](https://drive.google.com/drive/folders/1-TBYckXgHn8kFzBsCcHnFLFpcea71BoC?usp=sharing)
+- Available on x86 Windows and M1 Macs
+- Dev environments can be run on any OS/Architecture
+
 ## Development Instructions
 
 - Download and install Python 3.10.2 or later 
